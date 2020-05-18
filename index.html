@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game - Part 7</title>
+    <script src="/phaser/phaser_js/phaser.js"></script>
+    <style type="text/css">
+        main {
+            margin: 0 auto;
+            max-width: 650px;
+            min-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <main id="juego">
+
+    </main>
+
+
+<!--
+
+-->
+<script src="src/escena1.js"></script>
+
+<script src="src/gameOver.js"></script>
+
+<script src="src/victoria.js"></script>
+
+<script src="assets/nivel_1/src/PNivel1.js"></script>
+
+<script src="assets/nivel_1/src/nivel1.js"></script>
+
+<script src="assets/nivel_1/src/pausaNivel1.js"></script>
+
+
+<script src="assets/nivel_2/src/PNivel2.js"></script>
+
+<script src="assets/nivel_2/src/nivel2.js"></script>
+
+<script src="assets/nivel_2/src/pausaNivel2.js"></script>
+
+
+<script src="assets/nivel_3/src/PNivel3.js"></script>
+
+<script src="assets/nivel_3/src/nivel3.js"></script>
+
+<script src="assets/nivel_3/src/pausaNivel3.js"></script>
+
+<script src="src/init.js"></script>
+
+<!--<script type="text/javascript">
+
+
+
+    let player;
+    let bomba;
+    let cursors;
+    let mapa;
+    let self;
+    let bloques;
+    let bloquesRompibles;
+    let quitarVida;
+
+    let tiempoBomba = 3;
+    let contador = 0;
+
+
+
+    function preload ()
+    {
+        this.load.spritesheet('bomberman', 'assets/bomber.gif', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('perder', 'assets/bomberman2.gif', { frameWidth: 14.2, frameHeight: 28 });
+        this.load.tilemapTiledJSON('mapa', 'assets/mapa1.json');
+        this.load.image('tiles', 'assets/Tileset.png');
+        this.load.image('bloques', 'assets/bloque.png');
+        this.load.spritesheet('bomba', 'assets/bomba.png', { frameWidth: 20.5, frameHeight: 20.8 });
+        this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 48, frameHeight: 48 });
+    }
+
+    function create ()
+    {
+        mapa = this.make.tilemap({ key: 'mapa' });
+
+        let tilesets = mapa.addTilesetImage('Tileset', 'tiles');
+        const solidosArray = mapa.getObjectLayer('bloquesSolidos')['objects'];
+        self=this;
+
+        mapa.createDynamicLayer('terreno', tilesets, 0, 0);
+        bloquesRompibles = mapa.createDynamicLayer('bloquesRompibles', tilesets, 0, 0);
+
+        bloques = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        })
+
+        solidosArray.forEach(obj => {
+            const bloque = bloques.create(obj.x, obj.y, 'bloques').setOrigin(0, 0);
+
+            if(obj.id == 39){
+                bloque.setSize(47, 640, true);
+            }
+
+            if(obj.id == 40){
+                bloque.setSize(16, 640, true);
+            }
+
+            if(obj.id == 41){
+                bloque.setSize(645, 45, true);
+            }
+
+            if(obj.id == 42){
+                bloque.setSize(645, 21, true);
+            }
+                bloque.alpha = 0;
+        });
+
+
+        bloquesRompibles.setCollisionByProperty({ rompible: true });
+
+
+        player = this.physics.add.sprite(39, 36, 'bomberman');
+        player.setSize(13, 13, true);
+        player.body.offset.y=13;
+
+        player.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('bomberman', { start: 21, end: 27 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn',
+            frames: [ { key: 'bomberman', frame: 14 } ],
+            frameRate: 10
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('bomberman', { start: 7, end: 13 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'up',
+            frames: this.anims.generateFrameNumbers('bomberman', { start: 0, end: 6 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'down',
+            frames: this.anims.generateFrameNumbers('bomberman', { start: 14, end: 20 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'setBomba',
+            frames: this.anims.generateFrameNumbers('bomba', { start:37 , end:39 }),
+            frameRate: 4,
+            repeat: -1
+
+        });
+
+        this.anims.create({
+            key: 'boom',
+            frames: this.anims.generateFrameNumbers('explosion', { start:0 , end:6 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'boomAlcance',
+            frames: this.anims.generateFrameNumbers('explosion', { start:7, end:13 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'boomFinal',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 14, end: 20 }),
+            frameRate: 7,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'tocarExplosion',
+            frames: [ { key: 'perder', frame: 43 }, { key: 'perder', frame: 42 }, { key: 'perder', frame: 44 }, { key: 'perder', frame: 42 } ],
+            frameRate: 5,
+        });
+
+        cursors = this.input.keyboard.createCursorKeys();
+
+        this.physics.add.collider(player, bloques);
+        this.physics.add.collider(player, bloquesRompibles);
+    }
+
+
+
+    function crearBomba(){
+        let temporizador;
+        let contador = 0;
+        let boom;
+        let bombaCopia;
+        let posicion_x = player.x;
+        let posicion_y = player.y+5;
+        let arrayMultiplos_x = [];
+        let arrayMultiplos_y = [];
+        let menor_x;
+        let mayor_x;
+        let menor_y;
+        let mayor_y;
+
+        for (let i = 39; i < posicion_x; i++) {
+            let posicion = i
+            arrayMultiplos_x.push(posicion);
+            i+=15;
+        }
+
+        menor_x = arrayMultiplos_x.pop();
+        mayor_x = menor_x + 16;
+
+        if((mayor_x - posicion_x) > (posicion_x - menor_x)){
+            posicion_x = menor_x;
+        }
+
+        if((mayor_x - posicion_x) < (posicion_x - menor_x)){
+            posicion_x = mayor_x;
+        }
+
+
+
+        for (let i = 39; i < posicion_y; i++) {
+            let posicion = i
+            arrayMultiplos_y.push(posicion);
+            i+=15;
+        }
+
+        menor_y = arrayMultiplos_y.pop();
+        mayor_y = menor_y + 16;
+
+        if((menor_y - posicion_y) > (posicion_y - menor_y)){
+            posicion_y = menor_y;
+        }
+
+        if((menor_y - posicion_y) < (posicion_y - menor_y)){
+            posicion_y = menor_y;
+        }
+
+
+        bomba = self.physics.add.sprite(posicion_x, posicion_y, 'bomba');
+        bomba.anims.play('setBomba', true);
+        bomba.setSize(13, 13, true);
+
+
+        self.physics.add.collider(bomba, player);
+        self.physics.add.collider(bomba, bloques);
+
+
+
+        bomba.setImmovable(true);
+        bombaCopia = bomba
+
+        temporizador = setInterval(function(){
+            contador++;
+            if(contador == tiempoBomba){
+                bomba.destroy();
+                clearInterval(temporizador);
+                bomba = undefined;
+                boom = true;
+                if(boom){
+                    explotarBomba(bombaCopia);
+                }
+            }
+        }, 1000);
+    }
+
+    function explotarBomba(bomba){
+        let explosion;
+        let alcance_derecha;
+        let expFinal_derecha;
+        let alcance_izquierda;
+        let expFinal_izquierda;
+        let alcance_arriba;
+        let expFinal_arriba;
+        let alcance_abajo;
+        let expFinal_abajo;
+        let x = bomba.x+1;
+        let y = bomba.y;
+        let tiempoExplosion = 1;
+        let t;
+        let contador = 0;
+
+        explosion = self.physics.add.sprite(x, y, 'explosion');
+        explosion.anims.play('boom', true);
+        explosion.setSize(36, 36, true);
+        explosion.setScale(0.32);
+
+        alcance_derecha = self.physics.add.sprite(x+15, y, 'explosion');
+        alcance_derecha.anims.play('boomAlcance', true);
+        alcance_derecha.setSize(36, 36, true);
+        alcance_derecha.setScale(0.32);
+
+        expFinal_derecha = self.physics.add.sprite(alcance_derecha.x+15, y, 'explosion');
+        expFinal_derecha.anims.play('boomFinal', true);
+        expFinal_derecha.setSize(36, 36, true);
+        expFinal_derecha.setScale(0.32);
+
+        alcance_izquierda = self.physics.add.sprite(x-15, y, 'explosion');
+        alcance_izquierda.angle = 180;
+        alcance_izquierda.anims.play('boomAlcance', true);
+        alcance_izquierda.setSize(36, 36, true);
+        alcance_izquierda.setScale(0.32);
+
+
+        expFinal_izquierda = self.physics.add.sprite(alcance_izquierda.x-15, y, 'explosion');
+        expFinal_izquierda.angle = 180
+        expFinal_izquierda.anims.play('boomFinal', true);
+        expFinal_izquierda.setSize(36, 36, true);
+        expFinal_izquierda.setScale(0.32);
+
+
+        alcance_arriba = self.physics.add.sprite(x, y-15, 'explosion');
+        alcance_arriba.angle = -90;
+        alcance_arriba.anims.play('boomAlcance', true);
+        alcance_arriba.setSize(36, 36, true);
+        alcance_arriba.setScale(0.32);
+
+
+        expFinal_arriba = self.physics.add.sprite(x, alcance_arriba.y-15, 'explosion');
+        expFinal_arriba.angle = -90;
+        expFinal_arriba.anims.play('boomFinal', true);
+        expFinal_arriba.setSize(36, 36, true);
+        expFinal_arriba.setScale(0.32);
+
+
+        alcance_abajo = self.physics.add.sprite(x, y+15, 'explosion');
+        alcance_abajo.angle = 90;
+        alcance_abajo.anims.play('boomAlcance', true);
+        alcance_abajo.setSize(36, 36, true);
+        alcance_abajo.setScale(0.32);
+
+
+        expFinal_abajo = self.physics.add.sprite(x, alcance_abajo.y+15, 'explosion');
+        expFinal_abajo.angle = 90;
+        expFinal_abajo.anims.play('boomFinal', true);
+        expFinal_abajo.setSize(36, 36, true);
+        expFinal_abajo.setScale(0.32);
+
+
+        explosion.setCollideWorldBounds(true);
+        self.physics.add.collider(alcance_derecha, bloques, function(){
+            alcance_derecha.destroy();
+            alcance_derecha.isDestroyed = true;
+
+            if(alcance_derecha.isDestroyed){
+                expFinal_derecha.destroy();
+            }
+        });
+
+        self.physics.add.collider(alcance_izquierda, bloques, function(){
+            alcance_izquierda.destroy();
+            alcance_izquierda.isDestroyed = true;
+
+            if(alcance_izquierda.isDestroyed){
+                expFinal_izquierda.destroy();
+            }
+        });
+
+        self.physics.add.collider(alcance_arriba, bloques, function(){
+            alcance_arriba.destroy();
+            alcance_arriba.isDestroyed = true;
+
+            if(alcance_arriba.isDestroyed){
+                expFinal_arriba.destroy();
+            }
+        });
+
+        self.physics.add.collider(alcance_abajo, bloques, function(){
+            alcance_abajo.destroy();
+            alcance_abajo.isDestroyed = true;
+
+            if(alcance_abajo.isDestroyed){
+                expFinal_abajo.destroy();
+            }
+        });
+
+        self.physics.add.collider(expFinal_derecha, bloques, chocarSolido);
+        self.physics.add.collider(expFinal_izquierda, bloques, chocarSolido);
+        self.physics.add.collider(expFinal_arriba, bloques, chocarSolido);
+        self.physics.add.collider(expFinal_abajo, bloques, chocarSolido);
+
+
+        function comprobarExpFinal(anim){
+            let tile = bloquesRompibles.getTileAtWorldXY(anim.x, anim.y);
+            if(tile != null){
+                tile.visible = false;
+                tile.collideUp = false;
+                tile.collideDown = false;
+                tile.collideLeft = false;
+                tile.collideRight = false;
+            }
+        }
+
+
+        self.physics.add.overlap(alcance_derecha, bloquesRompibles, function(e){
+            let tile = bloquesRompibles.getTileAtWorldXY(e.x, e.y);
+            if(tile != null){
+                expFinal_derecha.destroy();
+                tile.visible = false;
+                tile.collideUp = false;
+                tile.collideDown = false;
+                tile.collideLeft = false;
+                tile.collideRight = false;
+            }
+        });
+
+        self.physics.add.overlap(alcance_izquierda, bloquesRompibles, function(e){
+            let tile = bloquesRompibles.getTileAtWorldXY(e.x, e.y);
+            if(tile != null){
+                expFinal_izquierda.destroy();
+                tile.visible = false;
+                tile.collideUp = false;
+                tile.collideDown = false;
+                tile.collideLeft = false;
+                tile.collideRight = false;
+            }
+        });
+
+        self.physics.add.overlap(alcance_arriba, bloquesRompibles, function(e){
+            let tile = bloquesRompibles.getTileAtWorldXY(e.x, e.y);
+            if(tile != null){
+                expFinal_arriba.destroy();
+                tile.visible = false;
+                tile.collideUp = false;
+                tile.collideDown = false;
+                tile.collideLeft = false;
+                tile.collideRight = false;
+            }
+        });
+
+        self.physics.add.overlap(alcance_abajo, bloquesRompibles, function(e){
+            let tile = bloquesRompibles.getTileAtWorldXY(e.x, e.y);
+            if(tile != null){
+                expFinal_abajo.destroy();
+                tile.visible = false;
+                tile.collideUp = false;
+                tile.collideDown = false;
+                tile.collideLeft = false;
+                tile.collideRight = false;
+            }
+        });
+
+
+        //Colision con bloques que se pueden romper
+        self.physics.add.overlap(expFinal_derecha, bloquesRompibles, comprobarExpFinal);
+        self.physics.add.overlap(expFinal_izquierda, bloquesRompibles, comprobarExpFinal);
+        self.physics.add.overlap(expFinal_arriba, bloquesRompibles, comprobarExpFinal);
+        self.physics.add.overlap(expFinal_abajo, bloquesRompibles, comprobarExpFinal);
+
+        //Collision entre el jugador y la explosion
+        self.physics.add.overlap(explosion, player, chocarJugador);
+        self.physics.add.overlap(alcance_derecha, player, chocarJugador);
+        self.physics.add.overlap(alcance_izquierda, player, chocarJugador);
+        self.physics.add.overlap(alcance_arriba, player, chocarJugador);
+        self.physics.add.overlap(alcance_abajo, player, chocarJugador);
+
+        self.physics.add.overlap(expFinal_derecha, player, chocarJugador);
+        self.physics.add.overlap(expFinal_izquierda, player, chocarJugador);
+        self.physics.add.overlap(expFinal_arriba, player, chocarJugador);
+        self.physics.add.overlap(expFinal_abajo, player, chocarJugador);
+
+        self.children.bringToTop(player);
+
+
+       t = setInterval(function(){
+            contador ++;
+            if(contador == tiempoExplosion){
+                console.log(contador);
+                explosion.destroy();
+                alcance_derecha.destroy();
+                expFinal_derecha.destroy();
+                alcance_izquierda.destroy();
+                expFinal_izquierda.destroy();
+                alcance_arriba.destroy();
+                expFinal_arriba.destroy();
+                alcance_abajo.destroy();
+                expFinal_abajo.destroy();
+
+            }
+        }, 1000);
+
+       console.log(self.anims);
+
+    }
+
+    function chocarJugador(){
+        self.physics.pause();
+        quitarVida = true;
+        //gameOver = true;
+    }
+
+    function chocarSolido(anim, bloque){
+        anim.isDisabled = true;
+        anim.disableBody(true, true);
+    }
+
+    function reiniciarEscena(){
+        quitarVida = false;
+        contador = 0;
+
+        self.registry.destroy();
+        self.events.off();
+        self.scene.restart();
+    }
+
+
+    function update ()
+    {
+        if(!quitarVida){
+
+
+            if (cursors.left.isDown)
+            {
+                player.setVelocityX(-80);
+                player.setVelocityY(0);
+                player.anims.play('left', true);
+            }
+            else if (cursors.right.isDown)
+            {
+                player.setVelocityX(80);
+                player.setVelocityY(0);
+                player.anims.play('right', true);
+                player.setVelocityY(0);
+            }
+
+            else  if (cursors.up.isDown)
+            {
+                player.setVelocityY(-80);
+                player.setVelocityX(0);
+                player.anims.play('up', true);
+
+            }else if (cursors.down.isDown)
+            {
+                player.setVelocityY(80);
+                player.setVelocityX(0);
+                player.anims.play('down', true);
+            }
+            else
+            {
+                player.setVelocityY(0);
+                player.setVelocityX(0);
+                player.anims.play('turn', true);
+                quitarVida = false;
+            }
+
+
+            if(cursors.space.isDown && bomba == undefined){
+                crearBomba();
+            }
+        } else if (quitarVida){
+
+            player.setVelocityY(0);
+            player.setVelocityX(0);
+            player.setScale(1.2);
+            player.anims.play('tocarExplosion', true);
+
+            if(player.frame.name == 44){
+                contador++;
+                if (contador == 27){
+                    reiniciarEscena();
+                    console.log('k');
+                }
+            }
+
+            console.log(player.frame.name);
+        }
+    }
+
+
+</script>-->
+
+</body>
+</html>
