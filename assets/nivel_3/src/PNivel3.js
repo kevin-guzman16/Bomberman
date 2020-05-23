@@ -4,7 +4,7 @@ class PNivel3 extends Phaser.Scene {
 	}
 
 	preload() {
-	       this.load.audio('inicio', 'assets/nivel_1/audios/inicioNivel.wav');
+	       this.load.audio('inicio', 'assets/audios/inicioNivel.wav');
                this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
 	}
 

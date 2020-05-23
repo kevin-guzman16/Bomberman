@@ -23,8 +23,8 @@ class Nivel_I extends Phaser.Scene {
         this.load.image('bloques', 'assets/nivel_1/imgs/bloque.png');
         this.load.image('marcador', 'assets/imgs/marcador.png');
 
-        this.load.audio('explosionSound', ['assets/nivel_1/audios/explosion.wav']);
-        this.load.audio('ponerBombaSound', ['assets/nivel_1/audios/ponerBomba.wav']);
+        this.load.audio('explosionSound', ['assets//audios/explosion.wav']);
+        this.load.audio('ponerBombaSound', ['assets//audios/ponerBomba.wav']);
         this.load.audio('ganarSound', ['assets/nivel_1/audios/ganar.mp3']);
 
         this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
