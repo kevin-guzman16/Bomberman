@@ -29,7 +29,6 @@ class Nivel_I extends Phaser.Scene {
 
         this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
 
-
     }
 
     create ()

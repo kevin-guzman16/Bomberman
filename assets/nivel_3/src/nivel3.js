@@ -221,9 +221,9 @@ class Nivel_III extends Phaser.Scene {
         });
 
         this.physics.add.collider(this.enemigos, this.bloquesSolidos, this.enemigoChocaSolido);
-        //this.physics.add.overlap(this.enemigos, player, this.chocarJugador);
+        this.physics.add.overlap(this.enemigos, player, this.chocarJugador);
         this.physics.add.collider(player, this.bloquesSolidos);
-        //this.physics.add.collider(player, this.bloquesRompibles);
+        this.physics.add.collider(player, this.bloquesRompibles);
         this.physics.add.collider(this.enemigos, this.bloquesRompibles, this.enemigoChocaRompibles);
         this.physics.add.collider(this.enemigos, this.enemigos, this.enemigosChocanEntreSi);
 
@@ -949,6 +949,7 @@ class Nivel_III extends Phaser.Scene {
             self.scene.start('PNivel3');
         }else{
             contador = 0;
+            self.limpiarCache();
             self.scene.add('GameOver', new GameOver);
             self.scene.start('GameOver');
         }
@@ -993,7 +994,6 @@ class Nivel_III extends Phaser.Scene {
         self.textures.removeKey('perder');
         self.textures.removeKey('bomberman');
         self.textures.removeKey('bomba');
-        //self.textures.removeKey('fuente');
         self.anims.remove('enemigoCaminaIzquierda');
         self.anims.remove('enemigoCaminaDerecha');
         self.anims.remove('enemigoKill');
@@ -1021,7 +1021,7 @@ class Nivel_III extends Phaser.Scene {
 
         this.scoreLabel._text = "SCORE: "+this.scoreTotal;
 
-        this.enemiesCount = 0//this.enemigos.countActive();
+        this.enemiesCount = this.enemigos.countActive();
 
         if(!this.quitarVida){
 

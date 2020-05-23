@@ -40,7 +40,7 @@ class GameOver extends Phaser.Scene {
 
         	if(contador == 6){
                 self.scene.add("SceneA", new SceneA);
-    	        	self.scene.start('SceneA');
+    	        self.scene.start('SceneA');
                 sonido.pause();
                 clearInterval(temp);
         	}

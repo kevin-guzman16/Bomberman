@@ -952,8 +952,8 @@ class Nivel_II extends Phaser.Scene {
             contador = 0;
             self.scene.start('PNivel2');
         }else{
-            score = 0;
             contador = 0;
+            self.limpiarCache();
             self.scene.add('GameOver', new GameOver);
             self.scene.start('GameOver');
         }
@@ -998,7 +998,6 @@ class Nivel_II extends Phaser.Scene {
         self.textures.removeKey('perder');
         self.textures.removeKey('bomberman');
         self.textures.removeKey('bomba');
-        //self.textures.removeKey('fuente');
         self.anims.remove('enemigoCaminaIzquierda');
         self.anims.remove('enemigoCaminaDerecha');
         self.anims.remove('enemigoKill');
