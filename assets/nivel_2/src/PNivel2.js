@@ -4,12 +4,12 @@ class PNivel2 extends Phaser.Scene {
 	}
 
 	preload() {
-            this.load.audio('inicio', 'assets/audios/inicioNivel.wav');
-            this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
+            this.load.audio('inicio', 'bomberman/assets/audios/inicioNivel.wav');
+            this.load.bitmapFont('fuente', 'bomberman/assets/fuentes/font.png', 'bomberman/assets/fuentes/font.fnt');
 	}
 
 	create() {
-	
+
         let contador = 0;
         let temp;
         let sonido = this.sound.add('inicio');
@@ -37,7 +37,7 @@ class PNivel2 extends Phaser.Scene {
 
                 if(contador == 1){
                         sonido.play();
-                }        
+                }
 
                 if(contador == 2){
                         self.cameras.main.fadeOut(1000);
@@ -55,7 +55,7 @@ class PNivel2 extends Phaser.Scene {
 
 	update(time, delta) {
                 if(textoInicio.x != (centroX-40)){
-                        textoInicio.x += 8; 
+                        textoInicio.x += 8;
                 }
 	}
 }

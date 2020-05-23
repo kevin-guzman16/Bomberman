@@ -7,27 +7,27 @@ class Nivel_I extends Phaser.Scene {
 
     preload ()
     {
-        this.load.spritesheet('bomberman', 'assets/imgs/bomber.gif', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('perder', 'assets//imgs/perder_anim.png', { frameWidth: 17, frameHeight: 26 });
-        this.load.spritesheet('enemigos', 'assets/nivel_1/imgs/enemigoII.png', { frameWidth: 22, frameHeight: 35});
-        this.load.spritesheet('bomba', 'assets/nivel_1/imgs/bomba.png', { frameWidth: 20.5, frameHeight: 20.8 });
-        this.load.spritesheet('explosion', 'assets/imgs/explosion.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('bloqueRoto', 'assets/nivel_1/imgs/bloque_anim_I.png', { frameWidth: 16, frameHeight: 16});
-        this.load.spritesheet('puerta', 'assets/nivel_1/imgs/puerta.png', { frameWidth: 24, frameHeight: 30 });
+        this.load.spritesheet('bomberman', 'bomberman/assets/imgs/bomber.gif', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('perder', 'bomberman/assets//imgs/perder_anim.png', { frameWidth: 17, frameHeight: 26 });
+        this.load.spritesheet('enemigos', 'bomberman/assets/nivel_1/imgs/enemigoII.png', { frameWidth: 22, frameHeight: 35});
+        this.load.spritesheet('bomba', 'bomberman/assets/nivel_1/imgs/bomba.png', { frameWidth: 20.5, frameHeight: 20.8 });
+        this.load.spritesheet('explosion', 'bomberman/assets/imgs/explosion.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('bloqueRoto', 'bomberman/assets/nivel_1/imgs/bloque_anim_I.png', { frameWidth: 16, frameHeight: 16});
+        this.load.spritesheet('puerta', 'bomberman/assets/nivel_1/imgs/puerta.png', { frameWidth: 24, frameHeight: 30 });
 
-        this.load.audio('fondo', ['assets/nivel_1/audios/fondo_1.mp3']);
+        this.load.audio('fondo', ['bomberman/assets/nivel_1/audios/fondo_1.mp3']);
 
-        this.load.tilemapTiledJSON('mapa', 'assets/nivel_1/mapa.json');
+        this.load.tilemapTiledJSON('mapa', 'bomberman/assets/nivel_1/mapa.json');
 
-        this.load.image('tiles', 'assets/nivel_1/imgs/tileset_2.png');
-        this.load.image('bloques', 'assets/nivel_1/imgs/bloque.png');
-        this.load.image('marcador', 'assets/imgs/marcador.png');
+        this.load.image('tiles', 'bomberman/assets/nivel_1/imgs/tileset_2.png');
+        this.load.image('bloques', 'bomberman/assets/nivel_1/imgs/bloque.png');
+        this.load.image('marcador', 'bomberman/assets/imgs/marcador.png');
 
-        this.load.audio('explosionSound', ['assets//audios/explosion.wav']);
-        this.load.audio('ponerBombaSound', ['assets//audios/ponerBomba.wav']);
-        this.load.audio('ganarSound', ['assets/nivel_1/audios/ganar.mp3']);
+        this.load.audio('explosionSound', ['bomberman/assets//audios/explosion.wav']);
+        this.load.audio('ponerBombaSound', ['bomberman/assets//audios/ponerBomba.wav']);
+        this.load.audio('ganarSound', ['bomberman/assets/nivel_1/audios/ganar.mp3']);
 
-        this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
+        this.load.bitmapFont('fuente', 'bomberman/assets/fuentes/font.png', 'bomberman/assets/fuentes/font.fnt');
 
     }
 

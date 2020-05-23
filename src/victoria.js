@@ -4,9 +4,9 @@ class Victoria extends Phaser.Scene {
 	}
 
 	preload() {
-	       this.load.audio('victoria', 'assets/audios/victoria.mp3');
-         this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
-         this.load.image('victoria', 'assets/imgs/victoria.png');
+	       this.load.audio('victoria', 'bomberman/assets/audios/victoria.mp3');
+         this.load.bitmapFont('fuente', 'bomberman/assets/fuentes/font.png', 'assets/fuentes/font.fnt');
+         this.load.image('victoria', 'bomberman/assets/imgs/victoria.png');
 	}
 
 	create() {

@@ -7,27 +7,27 @@
     }
 
     preload() {
-        this.load.image('fondo', 'assets/imgs/fondo.png');
-        this.load.audio('start', 'assets/audios/principal.mp3');
-        this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
+        this.load.image('fondo', 'bomberman/assets/imgs/fondo.png');
+        this.load.audio('start', 'bomberman/assets/audios/principal.mp3');
+        this.load.bitmapFont('fuente', 'bomberman/assets/fuentes/font.png', 'bomberman/assets/fuentes/font.fnt');
 
         if(!scriptsCargados){
 
-            this.load.script('pausa1' ,'assets/nivel_1/src/pausaNivel1.js');
-            this.load.script('pnivel1', 'assets/nivel_1/src/PNivel1.js');
-            this.load.script('nivel1', 'assets/nivel_1/src/nivel1.js');
+            this.load.script('pausa1' ,'bomberman/assets/nivel_1/src/pausaNivel1.js');
+            this.load.script('pnivel1', 'bomberman/assets/nivel_1/src/PNivel1.js');
+            this.load.script('nivel1', 'bomberman/assets/nivel_1/src/nivel1.js');
 
-            this.load.script('pausa2' ,'assets/nivel_2/src/pausaNivel2.js');
-            this.load.script('pnivel2', 'assets/nivel_2/src/PNivel2.js');
-            this.load.script('nivel2', 'assets/nivel_2/src/nivel2.js');
+            this.load.script('pausa2' ,'bomberman/assets/nivel_2/src/pausaNivel2.js');
+            this.load.script('pnivel2', 'bomberman/assets/nivel_2/src/PNivel2.js');
+            this.load.script('nivel2', 'bomberman/assets/nivel_2/src/nivel2.js');
 
-            this.load.script('pausa3' ,'assets/nivel_3/src/pausaNivel3.js');
-            this.load.script('pnivel3', 'assets/nivel_3/src/PNivel3.js');
-            this.load.script('nivel3', 'assets/nivel_3/src/nivel3.js');
+            this.load.script('pausa3' ,'bomberman/assets/nivel_3/src/pausaNivel3.js');
+            this.load.script('pnivel3', 'bomberman/assets/nivel_3/src/PNivel3.js');
+            this.load.script('nivel3', 'bomberman/assets/nivel_3/src/nivel3.js');
 
-            this.load.script('gameover', 'src/GameOver.js');
-            this.load.script('victoria', 'src/victoria.js');
-        }    
+            this.load.script('gameover', 'bomberman/src/gameOver.js');
+            this.load.script('victoria', 'bomberman/src/victoria.js');
+        }
     }
 
     create() {

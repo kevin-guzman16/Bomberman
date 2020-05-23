@@ -4,7 +4,7 @@ class pausaNivel_II extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.audio('pausa', 'assets/audios/pausa.wav');
+		this.load.audio('pausa', 'bomberman/assets/audios/pausa.wav');
 	}
 
 	create() {
