@@ -16,10 +16,8 @@ class Victoria extends Phaser.Scene {
         let temporizador;
         let sonido = this.sound.add('victoria');
         let textoScore;
-        this.textoVolver = undefined;
         let imagen;
         let puntuacion = score.toString().padStart(4,'0');
-        let contador2 = 0;
 
         self = this;
         contador = 0;
