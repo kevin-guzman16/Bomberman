@@ -45,30 +45,13 @@ class Victoria extends Phaser.Scene {
             if(contador == 7){
                 sonido.pause();
                 textoScore = self.add.bitmapText(imagen.x-130, imagen.y+imagen.width+15, 'fuente', "PUNTUACION: "+puntuacion, 18);
-                //self.cameras.main.fadeOut(2000);
             }
 
-        	  if(contador == 9){
-                contador2++
-                self.textoVolver = self.add.bitmapText(textoScore.x-130, textoScore.y+25, 'fuente', "PRESIONA Z PARA VOLVER AL MENU PRINCIPAL", 15);
-                self.input.keyboard.on('keydown-'+'Z', function() {
-
-            			self.cameras.main.fadeOut(1000);
-
-            			temporizador = setInterval(function(){
-            				contador++;
-
-            				if(contador2 == 1){
-            					self.limpiarCache();
-            					self.scene.add("SceneA", new SceneA);
-            					self.scene.start("SceneA");
-                      clearInterval(temporizador);
-            					clearInterval(temp);
-            				}
-
-            			},1000);
-            		}, this);
-        	}
+        	  if(contador == 8){
+								self.limpiarCache();
+              	clearInterval(temp);
+								setTimeout(self.sendScoreAJAX, 2000);
+        		}
         }, 1000);
 
 	}

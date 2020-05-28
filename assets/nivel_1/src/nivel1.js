@@ -953,7 +953,6 @@ class Nivel_I extends Phaser.Scene {
             contador = 0;
             self.scene.start('PNivel1');
         }else{
-            score = 0;
             contador = 0;
             self.limpiarCache();
             self.scene.add('GameOver', new GameOver);

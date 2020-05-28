@@ -4,9 +4,9 @@ class GameOver extends Phaser.Scene {
 	}
 
 	preload() {
-	       this.load.audio('gameOver', 'assets/audios/gameOver.wav');
-           this.load.bitmapFont('fuente', 'assets/fuentes/font.png', 'assets/fuentes/font.fnt');
-           this.load.image('perder', 'assets/imgs/gameOver.png');
+	       this.load.audio('gameOver', 'bomberman/assets/audios/gameOver.wav');
+           this.load.bitmapFont('fuente', 'bomberman/assets/fuentes/font.png', 'assets/fuentes/font.fnt');
+           this.load.image('perder', 'bomberman/assets/imgs/gameOver.png');
 	}
 
 	create() {
@@ -39,13 +39,26 @@ class GameOver extends Phaser.Scene {
             }
 
         	if(contador == 6){
-                self.scene.add("SceneA", new SceneA);
-    	        self.scene.start('SceneA');
                 sonido.pause();
+								setTimeout(self.sendScoreAJAX, 2000);
                 clearInterval(temp);
         	}
         }, 1000);
 
+	}
+
+	sendScoreAJAX() {
+		$.ajax({
+			type: "POST",
+			url: "../score/add",
+			data: { "Game": 'Bomberman', "Score" : score },
+			success: (response) => {
+				if(response.route) window.location.href = response.route;
+			},
+			error: () => {
+				console.log("ERROR EN AJAX");
+			}
+		});
 	}
 
 	update(time, delta) {
