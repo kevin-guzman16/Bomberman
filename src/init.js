@@ -27,7 +27,7 @@
 
             this.load.script('gameover', 'src/GameOver.js');
             this.load.script('victoria', 'src/victoria.js');
-        }    
+        }
     }
 
     create() {
@@ -148,7 +148,7 @@ let config = {
         physics: {
             default: 'arcade',
             arcade: {
-                debug: false
+                debug: true
             }
         },
         scene: [SceneA]
