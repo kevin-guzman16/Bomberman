@@ -82,8 +82,8 @@ class Nivel_I extends Phaser.Scene {
         this.children.bringToTop(this.puerta);
 
         player = this.physics.add.sprite(empezarX, empezarY, 'bomberman');
-        player.setSize(13, 13, true);
-        player.body.offset.y=13;
+        player.setSize(11.5, 15, true);
+        player.body.offset.y=14;
 
 
         this.anims.create({
@@ -322,8 +322,6 @@ class Nivel_I extends Phaser.Scene {
     }
 
     enemigoChocaSolido(sprite, bloque){
-        let colision = sprite.body.touching;
-        let velocidad = sprite.body.velocity.x;
         let numAlt = Math.floor(Math.random() * (4 - 0));
 
         switch (numAlt) {
@@ -357,8 +355,6 @@ class Nivel_I extends Phaser.Scene {
     }
 
     enemigoChocaRompibles(sprite){
-        let colision = sprite.body.touching;
-        let velocidad = sprite.body.velocity.x;
         let numAlt = Math.floor(Math.random() * (4 - 0));
 
         switch (numAlt) {
@@ -1035,26 +1031,22 @@ class Nivel_I extends Phaser.Scene {
             if (this.cursors.left.isDown)
             {
                 player.setVelocityX(-70);
-                player.setVelocityY(0);
                 player.anims.play('left', true);
             }
             else if (this.cursors.right.isDown)
             {
                 player.setVelocityX(70);
-                player.setVelocityY(0);
                 player.anims.play('right', true);
             }
 
             else  if (this.cursors.up.isDown)
             {
                 player.setVelocityY(-70);
-                player.setVelocityX(0);
                 player.anims.play('up', true);
 
             }else if (this.cursors.down.isDown)
             {
                 player.setVelocityY(70);
-                player.setVelocityX(0);
                 player.anims.play('down', true);
             }
             else

@@ -726,6 +726,7 @@ class Nivel_II extends Phaser.Scene {
                 tmp.setSize(36, 36, true);
                 tmp.setScale(0.32);
                 tmp.setImmovable(true);
+                tmp.angle = -90;
 
                 alcance_arriba.destroy();
                 self.children.bringToTop(enemigo);
@@ -1032,26 +1033,22 @@ class Nivel_II extends Phaser.Scene {
             if (this.cursors.left.isDown)
             {
                 player.setVelocityX(-70);
-                player.setVelocityY(0);
                 player.anims.play('left', true);
             }
             else if (this.cursors.right.isDown)
             {
                 player.setVelocityX(70);
-                player.setVelocityY(0);
                 player.anims.play('right', true);
             }
 
             else  if (this.cursors.up.isDown)
             {
                 player.setVelocityY(-70);
-                player.setVelocityX(0);
                 player.anims.play('up', true);
 
             }else if (this.cursors.down.isDown)
             {
                 player.setVelocityY(70);
-                player.setVelocityX(0);
                 player.anims.play('down', true);
             }
             else
