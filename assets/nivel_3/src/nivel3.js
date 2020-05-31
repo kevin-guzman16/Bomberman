@@ -322,8 +322,6 @@ class Nivel_III extends Phaser.Scene {
     }
 
     enemigoChocaSolido(sprite, bloque){
-        let colision = sprite.body.touching;
-        let velocidad = sprite.body.velocity.x;
         let numAlt = Math.floor(Math.random() * (4 - 0));
 
         switch (numAlt) {
@@ -357,8 +355,6 @@ class Nivel_III extends Phaser.Scene {
     }
 
     enemigoChocaRompibles(sprite){
-        let colision = sprite.body.touching;
-        let velocidad = sprite.body.velocity.x;
         let numAlt = Math.floor(Math.random() * (4 - 0));
 
         switch (numAlt) {
