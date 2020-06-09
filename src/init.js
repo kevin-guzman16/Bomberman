@@ -139,7 +139,7 @@ let config = {
         type: Phaser.AUTO,
         width: 800,
         height: 600,
-        parent: 'juego',
+        parent: 'main',
         pixelArt: true,
         scale: {
             mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
@@ -167,7 +167,7 @@ let config = {
     let puntuacion = 0;
     let self;
 
-    let vidasContador = 2;
+    let vidasContador = 3;
     let vidas = vidasContador;
     let score = 0;
     let haReiniciado;
