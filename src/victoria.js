@@ -77,7 +77,4 @@ class Victoria extends Phaser.Scene {
     self.textures.removeKey('victoria');
   }
 
-	update(time, delta) {
-
-	}
 }
